@@ -20,7 +20,6 @@ public class LinkedList<T> {
 
             Node<T> prev = head;
             Node<T> next = head.getNext();
-
             while (next != null) {
                 prev = prev.getNext();
                 next = next.getNext();
