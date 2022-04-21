@@ -14,10 +14,36 @@ public class HowManyAreSmallerThanMe {
      * count iteratively or recursively.
      */
 
+	/*
+		AVLNode<Integer> currentNode = avlTree.search(me);
+    	if(currentNode.getLeft() == null) {
+    		return 0;
+    	} else {
+    		int value = (currentNode.getLeft().getRight() == null) ? 0 : howManyAreSmallerThanMe(avlTree, currentNode.getLeft().getRight().getValue());
+    		return 1 + howManyAreSmallerThanMe(avlTree, currentNode.getLeft().getValue()) + value;
+    	}
+	 */
     public int howManyAreSmallerThanMe(AVLTree<Integer> avlTree, int me) {
-
-        return 0;
-
+    	//can count all that are below but cannot go to above layers, find way to get to root level
+    	return countSmaller(avlTree, me);
+    }
+    public int countSmaller(AVLTree<Integer> avlTree, int me) {
+    	AVLNode<Integer> currentNode = avlTree.search(me);
+    	if(currentNode.getLeft() == null) {
+    		return 0;
+    	} else {
+    		int value = (currentNode.getLeft().getRight() == null) ? 0 : countSmaller(avlTree, currentNode.getLeft().getRight().getValue());
+    		return 1 + countSmaller(avlTree, currentNode.getLeft().getValue()) + value;
+    	}
+    }
+    public int countLarger(AVLTree<Integer> avlTree, int me) {
+    	AVLNode<Integer> currentNode = avlTree.search(me);
+    	if(currentNode.getRight() ==null) {
+    		return 0;
+    	} else {
+    		int value = (currentNode.getRight().getLeft() == null) ? 0 : countLarger(avlTree, currentNode.getRight().getLeft().getValue());
+    		return 1 + countLarger(avlTree, currentNode.getRight().getValue() + value);
+    	}
     }
 
 }

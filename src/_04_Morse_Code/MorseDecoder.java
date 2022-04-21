@@ -1,6 +1,9 @@
 package _04_Morse_Code;
 
+import java.util.Scanner;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
+import _03_Intro_to_Binary_Trees.Node;
 
 public class MorseDecoder {
 
@@ -10,8 +13,11 @@ public class MorseDecoder {
 
         MorseDecoder md = new MorseDecoder();
         md.initialize();
-        md.decode();
-
+        String s = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+        md.decode(s);
+        Scanner keyboard = new Scanner(System.in);
+        md.decode(keyboard.nextLine());
+        
     }
 
     public void initialize() {
@@ -63,8 +69,25 @@ public class MorseDecoder {
      * english alphabet.
      * 
      */
-    void decode() {
-
+    void decode(String cipherText) {
+    	String[] cipher = cipherText.split(" ");
+    	for(int i = 0; i < cipher.length; i++) {
+    		System.out.print(decodeLetter(cipher[i]));
+    	}
+    	System.out.println();
     }
-
+    String decodeLetter(String morse) {
+    	Node<MorseCode> head = mcTree.getRoot();
+    	char[] c = morse.toCharArray();
+    	for(int i = 0; i < c.length; i++) {
+    		if(c[i] == '-') {
+    			head = head.getRight();
+    		} else if(c[i] == '.') {
+    			head = head.getLeft();
+    		} else {
+    			break;
+    		}
+    	}
+    	return head.getValue().getDecoded();
+    }
 }

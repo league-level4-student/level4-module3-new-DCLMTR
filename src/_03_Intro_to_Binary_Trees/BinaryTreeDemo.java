@@ -43,6 +43,24 @@ public class BinaryTreeDemo {
     	tree.printVertical();
     	tree.recursiveSearch(tree.getRoot(), 6).setValue(1);
     	tree.printVertical();
+    	Node<Integer> rootNode = tree.getRoot();
+    	changeValue(rootNode, 15);
+    	tree.printVertical();
+    }
+    public static void changeValue(Node<Integer> node, int value) {
+    	if(node.getRight() == null && node.getLeft() == null) {
+    		node.setValue(node.getValue()+value);
+    	} else if(node.getRight() == null) {
+    		node.setValue(node.getValue()+value);
+    		changeValue(node.getLeft(), value);
+    	} else if(node.getLeft() == null) {
+    		node.setValue(node.getValue()+value);
+    		changeValue(node.getRight(), value);
+    	} else {
+    		node.setValue(node.getValue()+value);
+    		changeValue(node.getRight(), value);
+    		changeValue(node.getLeft(), value);
+    	}
     }
 
 }
